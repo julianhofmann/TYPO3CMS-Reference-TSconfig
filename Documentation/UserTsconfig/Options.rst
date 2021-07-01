@@ -27,7 +27,8 @@ additionalPreviewLanguages
 
 :aspect:`Description`
    The user will see these additional languages when localizing stuff in
-   TCEforms. The list are uid numbers of sys_language records.
+   TCEforms. The list are ids of site languages, as defined in the
+   :ref:`config.yaml languageId <languageid>` 
 
 
 .. index:: Backend; Alert popups
@@ -173,7 +174,7 @@ contextMenu disableItems
 :aspect:`Description`
    List of context menu ("clickmenu") items to disable.
 
-   .. figure:: ../Images/PagesContextMenu.png
+   .. figure:: /Images/ManualScreenshots/PagesContextMenu.png
       :alt: Context menu of the page tree
 
       Context menu of the page tree
@@ -285,8 +286,13 @@ disableDelete
 :aspect:`Description`
    Disables the "Delete" button in TCEFORMs.
 
-   Note it is possible to set this for single tables using `options.disableDelete.[tableName]`.
+   Note it is possible to set this for single tables using `options.disableDelete.<tableName>`.
    Any value set for a single table will override the default value set for "disableDelete".
+
+:aspect:`Example`
+   .. code-block:: typoscript
+
+      options.disableDelete.tt_content = 1
 
 
 .. index:: DB mounts; Hide root from admins
@@ -367,7 +373,7 @@ file_list.enableDisplayBigControlPanel
    Determines whether the checkbox "Extended view" in the filelist module is shown or hidden.
    If it is hidden, you can predefine it to be always activated or always deactivated.
 
-   .. figure:: ../Images/UserTsFileListExtendedView.png
+   .. figure:: /Images/ManualScreenshots/UserTsFileListExtendedView.png
       :alt: Checkbox "Extended view" in the filelist module
 
    The following values are possible:
@@ -492,18 +498,24 @@ folderTree.altElementBrowserMountPoints
    list of "storageUid:folderName" items
 
 :aspect:`Description`
-   Sets alternative filemounts for use in the file list and in the
-   element browser. Each item consists of storage Uid followed by a colon
-   and the folder name inside that storage. You separate multiple items by
+   Sets alternative filemounts for use in any folder tree, including in the
+   :guilabel:`Filelist` list module, in the element browser and in file
+   selectors.
+
+   Each item consists of storage UID followed by a colon
+   and the folder name inside that storage. Separate multiple items by
    a comma.
 
-   For backwards compatibility, defining only a folder name but without a
-   storage Uid and colon prepended is still supported as well. Folders
-   without a storage Uid prepended are assumed to be located in the default
-   storage, which by default is the fileadmin/ folder. If a folder you specify
-   does not exist it will not get mounted. Effective in workspaces too.
+   For backwards compatibility, defining only a folder name but no
+   storage uid and colon prepended is still supported. Folders
+   without a storage UID prepended are assumed to be located in the default
+   storage, which by default is the :file:`fileadmin/` folder. If a folder
+   you specify does not exist it will not get mounted.
 
-   The alternative filemounts are added to the existing filemounts.
+   Settings this option is effective in workspaces too.
+
+   The alternative file mounts are added to the existing ones defined in
+   the user or group configuration.
 
 :aspect:`Example`
    .. code-block:: typoscript
@@ -746,7 +758,7 @@ pageTree.backgroundColor
       options.pageTree.backgroundColor.148 = #AFAFAF
       options.pageTree.backgroundColor.151 = rgba(0, 255, 0, 0.1)
 
-   .. figure:: ../Images/optionsPageTreeBackgroundColor.png
+   .. figure:: /Images/ManualScreenshots/optionsPageTreeBackgroundColor.png
       :alt: Tree branches with configured background colors
 
       Tree branches with configured background colors
@@ -765,10 +777,10 @@ pageTree.doktypesToShowInNewPageDragArea
    If set, the node top panel feature can be configured by a comma-separated list.
    Each number stands for a doctype id that should be added to the node top panel.
 
-   .. figure:: ../Images/PanelNormal.png
+   .. figure:: /Images/ManualScreenshots/PanelNormal.png
       :alt: Top panel in normal mode
 
-   .. figure:: ../Images/PanelModified.png
+   .. figure:: /Images/ManualScreenshots/PanelModified.png
       :alt: Top panel modified
 
 :aspect:`Default`
@@ -832,8 +844,45 @@ pageTree.showPathAboveMounts
    If set, the user db mount path above the mount itself is shown.
    This is useful if you work a lot with user db mounts.
 
-   .. figure:: ../Images/PanelUserDB.png
+   .. figure:: /Images/ManualScreenshots/PanelUserDB.png
       :alt: Active user db mount
+
+
+.. index:: Password; Reset
+.. _useroptions-passwordReset:
+
+passwordReset
+-------------
+
+:aspect:`Datatype`
+   boolean
+
+:aspect:`Default`
+   true
+
+:aspect:`Description`
+   If set to `0` the initiating of the password reset in the backend
+   will be disabled. This does not affect the password reset by
+   cli command.
+
+   To completely disable the password reset in the backend for all users, you can
+   set the user TSconfig globally in your :file:`ext_localconf.php`:
+
+   .. code-block:: php
+
+      \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig(
+         'options.passwordReset = 0'
+      );
+
+   If required, this setting can be overwritten on a per user basis
+   in the corresponding :guilabel:`TSconfig` field of the backend
+   usergroup or user.
+
+   The password reset functionality can also be disabled globally by setting:
+
+   .. code-block:: php
+
+      $GLOBALS['TYPO3_CONF_VARS']['BE']['passwordReset'] = false
 
 
 .. index:: Clipboard; Save for next login

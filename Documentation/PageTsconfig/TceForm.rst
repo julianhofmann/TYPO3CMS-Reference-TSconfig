@@ -134,7 +134,7 @@ altLabels
             altLabels.255 = LLL:EXT:my_ext/Resources/Private/Language/locallang_tca.xlf:recycler
         }
 
-   .. figure:: ../Images/PagesDoktypeDifferentLabels.png
+   .. figure:: /Images/ManualScreenshots/PagesDoktypeDifferentLabels.png
       :alt: The Page types with modified labels
 
       The Page types with modified labels
@@ -232,7 +232,48 @@ config.treeConfig
 
 
 .. index::
+   Records; field description
+
+description
+===========
+
+.. include:: /Images/AutomaticScreenshots/Input1.rst.txt
+
+:aspect:`Datatype`
+    string
+
+:aspect:`Description`
+   This property sets or overrides the TCA property
+   :ref:`TCA description <3tca:columns-properties-description>`, which allows to
+   define a description for a TCA field, next to its label.
+
+   .. code-block:: typoscript
+
+      TCEFORM.tt_content.header.description = override description
+
+   As already known from other properties, this can also be configured for a
+   specific language.
+
+   .. code-block:: typoscript
+
+      TCEFORM.tt_content.header.description.de = override description for DE
+
+   The option can be used on a per record type basis, too.
+
+   .. code-block:: typoscript
+
+      TCEFORM.tt_content.header.types.textpic.description = override description for textpic
+
+   Also referencing language labels is supported.
+
+   .. code-block:: typoscript
+
+      TCEFORM.tt_content.header.description = LLL:EXT:my_ext/Resources/Private/Language/locallang.xlf:override_description
+
+
+.. index::
    Records; field disabled
+
 
 disabled
 ========
@@ -284,7 +325,7 @@ disableNoMatchingValueElement
     If a selector box value is not available among the options in the box, the default behavior
     of TYPO3 is to preserve the value and to show a label which warns about this special state:
 
-    .. figure:: ../Images/SelectInvalidValue.png
+    .. figure:: /Images/ManualScreenshots/SelectInvalidValue.png
         :alt: A missing selector box value is indicated by a warning message
 
         A missing selector box value is indicated by a warning message
@@ -314,7 +355,7 @@ disableNoMatchingValueElement
 
     Now the selector box will default to the first element in the selector box:
 
-    .. figure:: ../Images/SelectNoInvalidValue.png
+    .. figure:: /Images/ManualScreenshots/SelectNoInvalidValue.png
         :alt: Instead of show a warning message the system choose the first element in the selector box
 
         Instead of show a warning message the system choose the first element in the selector box
@@ -322,6 +363,7 @@ disableNoMatchingValueElement
 
 .. index::
    Records; select items user function
+.. _itemsProcFunc:
 
 itemsProcFunc
 =============
@@ -458,7 +500,7 @@ noMatchingValue_label
             noMatchingValue_label = VALUE "%s" was not available!
         }
 
-    .. figure:: ../Images/SelectInvalidValueDifferentLabel.png
+    .. figure:: /Images/ManualScreenshots/SelectInvalidValueDifferentLabel.png
         :alt:  An invalid selector box value is indicated by a warning message
 
         An invalid selector box value is indicated by a warning message
@@ -570,7 +612,7 @@ suggest
 Configuration of the suggest wizard that is available and often enabled
 for :ref:`TCA type=group <t3tca:columns-group>` fields.
 
-.. figure:: ../Images/TcaTypeGroupSuggest.png
+.. figure:: /Images/ManualScreenshots/TcaTypeGroupSuggest.png
     :alt: A configured suggest wizard
 
     A configured suggest wizard
